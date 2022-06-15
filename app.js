@@ -3,6 +3,7 @@ const app = express()
 const path = require('path')
 const methodOverride = require('method-override')
 const ejsMate = require('ejs-mate')
+// const session = require('express-session')
 const catchAsync = require('./utils/CatchAsync')
 const ExpressError = require('./utils/ExpressError')
 const Joi = require('joi')
@@ -26,9 +27,17 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views')) 
 /* For Parsing The Json Data in Browser */
 app.use(express.urlencoded({extended: true}))
-
 app.use(methodOverride('_method'))
+app.use(express.static(path.join(__dirname, 'public')))
 
+// const sessionConfig = {
+//     secret: 'thisshouldbeabettersecret!',
+//     resave: false,
+//     saveUninitialized: true,
+//     // store: 
+// }
+
+// app.use(session(sessionConfig))
 
 
 app.use('/campgrounds', campgrounds)
